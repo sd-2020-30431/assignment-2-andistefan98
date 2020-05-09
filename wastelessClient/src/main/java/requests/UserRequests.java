@@ -24,7 +24,10 @@ public class UserRequests {
 		
 		List<User> lists = new ArrayList<User>();
 		
-		String query = "query" + " { "  + "\n allUsers "  + " { " +"\n id " + "\n username " +"\n password " + "\n } " + "\n }";
+		String query = "query" +
+		" { "  + "\n allUsers "  + 
+				" { " +"\n id " + "\n username " +"\n password " + "\n } " + 
+		"\n }";
 		
 		String json = "{\"query\":\"";
 		json += query;

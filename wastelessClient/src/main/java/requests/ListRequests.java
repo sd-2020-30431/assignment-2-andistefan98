@@ -32,7 +32,11 @@ public class ListRequests {
 	
 		List<Item> lists = new ArrayList<Item>();
 		
-		String query = "query" + " { "  + "\n allItems " + "(" + "userId" + " : \\\"" + String.valueOf(user_id) +"\\\") " + " { " + "\n name " + "\n purchaseDate "+ "\n id " + "\n calorieValue " + "\n quantity " + "\n expirationDate " + "\n } " + "\n }";
+		String query = "query" + 
+		        " { "  + "\n allItems " + 
+				"(" + "userId" + " : \\\"" + String.valueOf(user_id) +"\\\") " + " { " + "\n name " + "\n purchaseDate "+ "\n id " + "\n calorieValue " + "\n quantity " + "\n expirationDate " 
+		        + "\n } "
+				+ "\n }";
 		
 		String json = "{\"query\":\"";
 		json += query;
