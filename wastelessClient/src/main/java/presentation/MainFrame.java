@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import entities.Item;
+//import entities.Observer;
 import entities.User;
 
 import javax.swing.JButton;
@@ -19,17 +20,17 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.Optional;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
-public class MainFrame {
+public class MainFrame implements java.util.Observer{
 
 	private JFrame frmMainMenu;
 	static User user;
-//	static GroceryItemService itemServ;
-   // static Optional<User> user ;
-   // static UserService service;
-	//static GroceryListService listServ ;
+
+	
 	/**
 	 * Launch the application.
 	 */
@@ -132,7 +133,7 @@ public class MainFrame {
 					try {
 						lstName = new SeeAllListsFrame(user);
 					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
+		
 						e1.printStackTrace();
 					}
 					
@@ -168,7 +169,8 @@ public class MainFrame {
 		});
 		panel.add(btnDonate);
 		
-		JLabel lblUser = new JLabel("Hello " + user.getUsername() + " ! Current goal: " + user.getCaloric_goal());
+		
+		JLabel lblUser = new JLabel("Hello " + user.getUsername()) ; //" ! Current goal: " +getCaloric_goal());
 		lblUser.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblUser.setBounds(198, 471, 196, 35);
 		panel.add(lblUser);
@@ -176,10 +178,39 @@ public class MainFrame {
 		
 	}
 	
+	
+	public static void popOutWindow() {
+	final JFrame parent = new JFrame();
+    JButton button = new JButton();
+
+    button.setText("Take me back");
+    parent.add(button);
+    parent.pack();
+    parent.setVisible(true);
+
+    button.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            String name = JOptionPane.showInputDialog(parent,
+                    "You have items that will expire in the next few days. Go to the Donate section !", null);
+        }
+    });
+	 }
 
 
 	public void setVisible(boolean b) {
 		frmMainMenu.setVisible(b);
+		
+	}
+
+/*	@Override
+	public void update() {
+		
+		popOutWindow();
+		
+	}*/
+
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
 		
 	}
 

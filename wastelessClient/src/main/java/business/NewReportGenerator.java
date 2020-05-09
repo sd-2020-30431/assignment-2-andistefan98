@@ -39,7 +39,7 @@ public class NewReportGenerator {
 		 for(Item itm : targetItems) {
 			 totalCalories += itm.getCalorieValue();
 			 if(new SimpleDateFormat("dd/MM/yyyy").parse(itm.getExpirationDate()).before(dateNow)) {
-				 if(itm.getConsumptionDate()==null )
+				 if(itm.getConsumptionDate()==null || (new SimpleDateFormat("dd/MM/yyyy").parse(itm.getConsumptionDate()).getYear() >2021))
 				   expiredItems.add(itm);
 			 }
 		 }

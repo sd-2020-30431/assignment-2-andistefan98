@@ -7,7 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import entities.Item;
 import entities.User;
+import requests.ListRequests;
 import requests.UserRequests;
 
 import java.awt.FlowLayout;
@@ -15,21 +17,32 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.awt.event.ActionEvent;
 
-public class LoginFrame {
+public class LoginFrame extends Observable{
 
 	private JFrame frmLogin;
 	private JTextField userText;
 	private JTextField passwordText;
+	static ArrayList<Observer> observers = new ArrayList<Observer>();
 
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+	
+		
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -120,13 +133,12 @@ public class LoginFrame {
 					
 						String inputUsername = "\"" + userText.getText()  + "\"";
 						String inputPass = "\"" + passwordText.getText()  + "\"";
-						System.out.println(inputUsername);
+						
 						if(usr.getUsername().equals(inputUsername))
 						{ok=1;
 						theUser.setId(usr.getId());
 						theUser.setCaloric_goal(usr.getCaloric_goal());
 						theUser.setUsername(usr.getUsername());
-						System.out.println("AICIIII");
 						continue;
 						}
 					}
@@ -134,6 +146,14 @@ public class LoginFrame {
 				
 				if(ok==1) {
 					MainFrame frm = new MainFrame(theUser);
+					observers.add(frm);
+					try {
+						checkStatus(theUser.getId());
+					} catch (ParseException e1) {
+						
+					} catch (IOException e1) {
+						
+					}
 					frm.setVisible(true);
 					frmLogin.dispose();
 				}
@@ -141,13 +161,7 @@ public class LoginFrame {
 					lblEr.setText("Invalid credentials.");
 				}
 				
-				/*if(userText.getText().equals("admin") && passwordText.getText().contentEquals("admin"));
-				{
-				MainFrame frm = new MainFrame();
-				frm.setVisible(true);
-				frmLogin.dispose();
-			
-				}*/
+				
 			}
 		});
 		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -157,6 +171,31 @@ public class LoginFrame {
 		
 	}
 
+	void checkStatus(int user_id) throws ParseException, IOException {
+		
+		Iterable<Item> itms = ListRequests.getAll(user_id);
+		Date dateNow = new Date();
+		ArrayList<Item> expired = new ArrayList<Item>();
+		
+		for(Item itm: itms) {
+			 if(new SimpleDateFormat("dd/MM/yyyy").parse(itm.getExpirationDate()).before(dateNow)) {
+				 if(itm.getConsumptionDate()==null || (new SimpleDateFormat("dd/MM/yyyy").parse(itm.getConsumptionDate()).getYear() >2021))
+				    expired.add(itm);
+			 }
+		}
+		
+		if(expired.size()>0) {
+			notifyAllObservers();
+		}
+					
+	}
+	
+	public static void notifyAllObservers() {
+		for(Observer obs : observers) {
+			obs.update(null, null);
+		}
+	}
+	
 	public void setVisible(boolean b) {
 		frmLogin.setVisible(b);
 		
