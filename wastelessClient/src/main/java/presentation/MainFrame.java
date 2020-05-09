@@ -99,8 +99,8 @@ public class MainFrame {
 		btnSeeReports.setBounds(137, 103, 310, 67);
 		btnSeeReports.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//ReportsFrame frm = new ReportsFrame(user,service,listServ,itemServ);
-			//	frm.setVisible(true);
+				ReportsFrame frm = new ReportsFrame(user);
+				frm.setVisible(true);
 				frmMainMenu.dispose();
 			}
 		});

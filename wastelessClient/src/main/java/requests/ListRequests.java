@@ -32,7 +32,7 @@ public class ListRequests {
 	
 		List<Item> lists = new ArrayList<Item>();
 		
-		String query = "query" + " { "  + "\n allItems " + "(" + "userId" + " : \\\"" + String.valueOf(user_id) +"\\\") " + " { " + "\n name " + "\n id " + "\n calorieValue " + "\n quantity " + "\n expirationDate " + "\n } " + "\n }";
+		String query = "query" + " { "  + "\n allItems " + "(" + "userId" + " : \\\"" + String.valueOf(user_id) +"\\\") " + " { " + "\n name " + "\n purchaseDate "+ "\n id " + "\n calorieValue " + "\n quantity " + "\n expirationDate " + "\n } " + "\n }";
 		
 		String json = "{\"query\":\"";
 		json += query;
@@ -62,6 +62,7 @@ public class ListRequests {
         String[] listcalories = StringUtils.substringsBetween(result , "\"calorieValue\":", ",");
         String[] listquant  = StringUtils.substringsBetween(result,"\"quantity\":", ",");
         String[] listIds  = StringUtils.substringsBetween(result,"\"id\":", ",");
+        String[] purchaseDates  = StringUtils.substringsBetween(result,"\"purchaseDate\":", ",");
         
      System.out.println(result);
         
@@ -73,6 +74,7 @@ public class ListRequests {
         while(size>0) {
         	Item newItm = new Item();
         	//newLst.setId(Integer.parseInt(listNames[size-1]));
+        	newItm.setPurchaseDate(purchaseDates[size-1]);
         	newItm.setId(Integer.parseInt(listIds[size-1]));
         	newItm.setName(listNames[size-1]);
         	newItm.setCalorieValue(Float.parseFloat(listcalories[size-1]));
