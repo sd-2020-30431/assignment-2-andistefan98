@@ -11,6 +11,7 @@ import entities.User;
 
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -180,13 +181,21 @@ public class MainFrame implements java.util.Observer{
 	
 	
 	public static void popOutWindow() {
+		
+	
+        
 	final JFrame parent = new JFrame();
     JButton button = new JButton();
-
-    button.setText("Take me back");
+  
+    button.setText("Notification");
     parent.add(button);
-    parent.pack();
-    parent.setVisible(true);
+    
+   parent.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+  
+   parent.setSize(400,300);
+   parent.setLocationRelativeTo(null);
+   parent.setVisible(true);
+       
 
     button.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,16 +211,12 @@ public class MainFrame implements java.util.Observer{
 		
 	}
 
-/*	@Override
-	public void update() {
-		
-		popOutWindow();
-		
-	}*/
+	
 
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+	public void update(Observable o, Object arg) {
+		popOutWindow();
 	}
+
+	
 
 }

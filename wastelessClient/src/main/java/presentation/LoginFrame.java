@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.TimeUnit;
 import java.awt.event.ActionEvent;
 
 public class LoginFrame extends Observable{
@@ -129,7 +130,7 @@ public class LoginFrame extends Observable{
 				if(allUsers!=null) {
 					
 					for(User usr : allUsers) {
-						System.out.println(usr.getUsername());
+
 					
 						String inputUsername = "\"" + userText.getText()  + "\"";
 						String inputPass = "\"" + passwordText.getText()  + "\"";
@@ -148,6 +149,7 @@ public class LoginFrame extends Observable{
 					MainFrame frm = new MainFrame(theUser);
 					observers.add(frm);
 					try {
+						System.out.println("HERE BEFORE CHECK");
 						checkStatus(theUser.getId());
 					} catch (ParseException e1) {
 						
@@ -178,12 +180,25 @@ public class LoginFrame extends Observable{
 		ArrayList<Item> expired = new ArrayList<Item>();
 		
 		for(Item itm: itms) {
-			 if(new SimpleDateFormat("dd/MM/yyyy").parse(itm.getExpirationDate()).before(dateNow)) {
+			 if(new SimpleDateFormat("dd/MM/yyyy").parse(itm.getExpirationDate()).after(dateNow)) {
 				 if(itm.getConsumptionDate()==null || (new SimpleDateFormat("dd/MM/yyyy").parse(itm.getConsumptionDate()).getYear() >2021))
 				    expired.add(itm);
 			 }
+			 
+			 String beet = itm.getExpirationDate();
+
+			 Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(beet); 
+			 long diff = date1.getTime() - dateNow.getTime();
+			    long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+			 
+			    if(days <= 2 && days >=-1 ) {
+			    	   expired.add(itm); //not literraly , but it is about the scope 
+			       }
+			 
 		}
 		
+		System.out.println(expired.size());
+	
 		if(expired.size()>0) {
 			notifyAllObservers();
 		}

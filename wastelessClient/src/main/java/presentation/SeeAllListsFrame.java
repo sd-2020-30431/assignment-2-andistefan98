@@ -175,8 +175,7 @@ public class SeeAllListsFrame {
 			    try {
 					 date1=new SimpleDateFormat("dd/MM/yyyy").parse(textField.getText());
 				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					
 				}
 			    
 			    

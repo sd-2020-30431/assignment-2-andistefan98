@@ -110,20 +110,12 @@ public class DonationFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				Item selectedItem= (Item) lsst.getSelectedValue();
-				
-				System.out.println(selectedItem.getCalorieValue() + " " + selectedItem.getId() + selectedItem.getName() +selectedItem.getQuantity());
-				
+	
 				int reqId = 0 ;
-				
-				
+							
 				
 				for(Item itm: itemsOfUser) {
-					System.out.println("\n"+itm.getCalorieValue() + itm.getQuantity());
-					System.out.println(itm.getName());
-					
-					System.out.println(Math.round(itm.getCalorieValue()) - Math.round(selectedItem.getCalorieValue()) == 0);
-					System.out.println(selectedItem.getQuantity() - itm.getQuantity() == 0);
-					
+		
 					
 					if( Math.round(itm.getCalorieValue()) - Math.round(selectedItem.getCalorieValue()) == 0) {
 						if(selectedItem.getQuantity() - itm.getQuantity() == 0) {
@@ -175,9 +167,9 @@ public class DonationFrame {
 			 Calendar calendar = Calendar.getInstance();
 			 Date now = new Date();
 			 String beet = itmm.getExpirationDate();
-			 System.out.println(beet);
+
 			 Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(beet);  
-			 System.out.println("dateeee:" + date1);
+
 			 long diff = date1.getTime() - now.getTime();
 			    long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 		       
