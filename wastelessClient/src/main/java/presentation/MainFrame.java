@@ -127,8 +127,7 @@ public class MainFrame implements java.util.Observer{
 		showAllBtn.setBackground(Color.WHITE);
 		showAllBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-						
+										
 					    
 					   SeeAllListsFrame lstName = null;
 					try {
@@ -138,7 +137,6 @@ public class MainFrame implements java.util.Observer{
 						e1.printStackTrace();
 					}
 					
-						
 						
 						lstName.setVisible(true);
 						frmMainMenu.dispose();
